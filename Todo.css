@@ -1,0 +1,147 @@
+body{
+   margin: 0;
+}
+.all{
+    background-color:#353434;
+    color: white;
+    width: 75%;
+  position: relative;
+    top:20;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    
+}
+form{
+    border-bottom:2px solid gray;
+    padding:10px;
+    gap:10px;
+    display:flex;
+    align-items:center;
+  
+}
+form input{
+    padding:12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+form select{
+    padding:12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+form button{
+    background-color:#34a7ef;
+
+	border-Radius:5px;
+	box-sizing: border-box;
+	cursor:pointer;
+    height:53px;
+    width:60px;
+   
+}
+form button:hover{
+	box-Shadow:2px 3px 8px #d3f7ff71;
+}
+
+.category{
+    display: flex;
+    gap:17px;
+    
+    color: white;
+ 
+    text-align: center;
+    text-decoration: none;
+  
+    font-size: 16px;
+  
+    cursor: pointer;
+
+   
+}
+.category h2{
+    padding-top: 10px;
+}
+.category h2:hover{
+    background-color:rgb(65, 63, 65); 
+    padding: 10px 12px;
+}
+.active{
+    color: white;
+    background-color:rgb(65, 63, 65);
+    padding: 10px 12px;
+   
+}
+.mestask{
+    background-color:rgb(65, 63, 63);
+
+    position:relative;
+    
+    cursor: pointer;
+
+}
+
+.task{
+    border-bottom:2px solid gray;
+    display: flex;
+    justify-content: space-around;
+   
+}
+.task button{
+    cursor: pointer;
+}
+.task h3{
+    width:60%
+}
+.task span{
+    position: relative;
+    top:20
+}
+.task input{
+    position: relative;
+    top:-20
+}
+.task img{
+    cursor: pointer;
+   margin-right: 20px;
+    margin-top: -15px;
+}
+.strickethrough{
+    text-decoration: line-through;
+}
+.edit{
+   position: relative; 
+   top:20;
+   left:0;
+   right:0;
+   bottom:0;
+   margin:auto;
+   background-color: white;
+   width: 300px;
+  
+   display: block;
+  
+}
+
+.btnedit{
+    position: relative;
+   margin-left: 45%;
+
+ 
+}
+.editbackgroundnone{
+    display:none;
+}
+.editbackground{
+    background-color:rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 99%;z-index: 999;
+    position: absolute;
+    margin:0;
+}
+

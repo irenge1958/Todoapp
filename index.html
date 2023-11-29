@@ -1,0 +1,374 @@
+<html>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Todo App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="app that helps you to manage your tasks">
+  <link rel="stylesheet" href="Todo.css">
+  <style>
+        @media screen and (max-width: 767px){
+ form  {
+    display: block;
+   
+
+    }
+    form input{
+    margin-bottom:10px ;
+    width: 80%;
+    }
+    .task img{
+      margin-right: 0;
+    }
+    .task input{
+      margin-right: 0;
+    }
+    .category{
+      overflow-x: auto;
+    }
+    ::-webkit-scrollbar {
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+ .all{
+  width: 95%;
+ }
+ 
+    }
+    .notice{
+      background-color:rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 99%;z-index: 1999;
+    position: absolute;
+    margin:0; 
+    display: block;
+    }
+    .notice-container {
+      background-color: #f8d7da; /* Light red background color */
+      color: #721c24; /* Dark red text color */
+      position: relative; 
+      top:20;
+      left:0;
+      right:0;
+      bottom:0;
+      margin:auto;
+      width: 300px;
+       display: block;
+       padding: 15px;
+       border-radius: 10px;
+
+    }
+
+    /* Optional: Style for a close button */
+    .close-btn {
+      cursor: pointer;
+      float: right;
+      font-weight: bold;
+    }
+    .notice-container img{
+      height: 30px;
+      position: relative;
+      margin-bottom: -5px;
+    }
+    .noticenone{
+      display: none;
+    }
+    
+  </style>
+</head>
+<body style="background-color:#1f1e1e;">
+  <br>
+  <div style="color:white;width: 100%; position:relative;top:0;left:0;right:0;bottom:0;margin:auto">
+   <h1 >Welcome to your todo-app</h1>
+</div>
+  <div class="noticenone"> 
+ 
+    <div class="notice-container">
+    <span class="close-btn" onclick="handlepop()">&times;</span>
+      <h1>notice to the user</h1>
+      <p>1.Use this button <input type="radio"> to make the task important</p>
+      <p>2.Use on this button  <img src="delete.png" alt="" srcset="">  to delete</p>
+     <p>3.click on this button  <img src="complete.png" alt="" srcset=""> to complete task </p> 
+    <p>4.click on this button   <img src="edi.png" alt="" srcset=""> to edit</p>
+    <p>!Just click on the button to carry one of the above operations on a particular task</p>
+ <button class="btnedit" style="background-color: #34a7ef;border-Radius:5px;
+ box-sizing: border-box;
+ cursor:pointer;
+   height:43px;
+   width:50px;" onclick="handlepop()">Ok</button>  
+    </div>
+  </div>
+  <script>
+    const handlepop=()=>{
+      var eli=document.querySelector(".notice");
+   eli.classList.remove('notice');               
+     eli.classList.add('noticenone');
+     localStorage.setItem('see',JSON.stringify('see'))
+    } 
+
+  </script>
+  <div class="editbackgroundnone">
+    <form class="edit" onsubmit="handledit2()">
+     <span id='close'style="position:absolute;right:13;font-size:30px;transform:rotate(45deg);font-weight: bolder;cursor:pointer">+</span>
+      <h1 >Edit here</h1>
+    <input type="text" id="newtask" placeholder="new task here" ><br> <br> 
+        <select id="newcategory"  >  <option value="" disabled selected>category</option>
+          <option value="Workplace">Workplace</option>
+          <option value="Home">Home</option>
+          <option value="Health">Health </option>
+          <option value="Family">Family</option>
+          <option value="Finance">Finance</option>
+          <option value="Education">Education</option>
+     </select><br> <br> 
+     <button type="sumbit" class="btnedit">edit</button></form>
+  </div>
+  <script>
+var todolist3Data = localStorage.getItem('todolist4');
+var todolist3Array = JSON.parse(todolist3Data);
+ var Newtask=todolist3Array? JSON.parse(localStorage.getItem('todolist4')) : [] ;
+var NEWtaskupadteL=Newtask.filter((x)=>{ return x.genre==='important'; })   
+var NEWtaskupadteR=Newtask.filter((x)=>{ return x.genre==='notimportant'; }) 
+ var Newtask=NEWtaskupadteL.concat(NEWtaskupadteR)
+ var see=JSON.parse(localStorage.getItem('see'));
+ if (Newtask.length===1 && !see){
+var eli=document.querySelector(".noticenone");
+   eli.classList.remove('noticenone');               
+     eli.classList.add('notice');  
+   
+
+}
+//  Function to handle the task added 
+    const handlesubmit=()=>{  
+      var task=document.getElementById('task').value
+      var category=document.getElementById('category').value;
+      var elements={taske:task,categorie:category,status:'notcompleted',genre:'notimportant'}
+      
+      var taskupadte=[...Newtask]
+     
+      taskupadte.push(elements)
+      localStorage.setItem('todolist4',JSON.stringify(taskupadte))
+      
+  
+    }
+
+   
+   //  function to delete the task
+   const handleDelete=(index)=>{
+    var deletee=[...Newtask];
+      deletee.splice(index,1);
+      localStorage.setItem('todolist4',JSON.stringify(deletee))
+      window.location.reload();
+}
+const handlecomplete=(index)=>{
+  var complete=[...Newtask];
+  complete[index].status='completed'
+      localStorage.setItem('todolist4',JSON.stringify(complete))
+      window.location.reload();
+}
+const handleedit=(index)=>{
+
+  var el=document.querySelector(".editbackgroundnone");
+     el.classList.remove('editbackgroundnone');		
+     el.classList.add('editbackground'); 
+     localStorage.setItem('element',JSON.stringify(index))
+    
+}
+const handledit2=()=>{
+  var edit=[...Newtask];
+  var elementedit= JSON.parse(localStorage.getItem('element'));
+  var task=document.getElementById('newtask').value
+      var category=document.getElementById('newcategory').value;
+  edit[elementedit].taske=task ? task : edit[elementedit].taske
+  edit[elementedit].categorie=category ? category : edit[elementedit].categorie
+      localStorage.setItem('todolist4',JSON.stringify(edit))
+      window.location.reload();
+}
+var close=document.getElementById('close');
+close.addEventListener("click", function() {
+  var el=document.querySelector(".editbackground");
+     
+     el.classList.add('editbackgroundnone');		
+     el.classList.remove('editbackground');               
+                    });  var url = window.location.href;
+
+// Extract the query string
+var queryString = url.split('?')[1];
+
+// Parse the query string
+var params = new URLSearchParams(queryString);
+
+// Access individual parameters
+var param1 = params.get('categorie');
+
+  //  filter the task by category  
+  
+  if(param1==='Workplace'){
+    display= Newtask.filter((x)=>{
+    return x.categorie==='Workplace';
+  
+  })   
+  }
+ 
+  else if(param1==='Home'){
+    display= Newtask.filter((x)=>{
+    return x.categorie==='Home';
+  })   
+
+  }
+  else if(param1==='Health'){
+    display= Newtask.filter((x)=>{
+    return x.categorie==='Health';
+  })   
+  }
+  else if(param1==='Family'){
+    display= Newtask.filter((x)=>{
+    return x.categorie==='Family';
+  })   
+  }
+  else if(param1==='Finance'){
+    display= Newtask.filter((x)=>{
+    return x.categorie==='Finance';
+  })   
+  }
+  else if(param1==='Education'){
+    display= Newtask.filter((x)=>{
+    return x.categorie==='Education';
+  })   
+  }
+      else if(!param1){
+         display=Newtask
+      }
+      const makeimportant=(index)=>{
+        
+  var important=[...Newtask];
+  important[index].genre='important';
+      localStorage.setItem('todolist4',JSON.stringify(important))
+      window.location.reload();
+     
+}
+  //  code to display the tasks 
+         window.onload = function () {
+         display.map.call(display, function (x,index) {
+         var link = document.createElement('h3');
+         var link2 = document.createElement('span');
+         var link3 = document.createElement('div');
+         link3.classList.add('task')
+         
+                    var check = document.createElement("input");
+                    check.classList.add('important')
+                    if(x.genre==='important'){
+                     check.checked = true;
+                     check.classList.add('succes')
+                     link.style.color='gold';
+                    }
+                    check.type= 'radio';
+                  
+                    check.addEventListener("click", function() {
+                   makeimportant(index);
+
+                    });
+                    // Buttons icons for delete ,complete and edit
+                    var trashButton = document.createElement("img");
+                    trashButton.src = 'delete.PNG';
+                    trashButton.width = 39; 
+                    trashButton.height = 47; 
+                    trashButton.addEventListener("click", function() {
+                    handleDelete(index);
+                    });
+                    var completeButton = document.createElement("img");
+                    completeButton.src = 'complete.PNG';
+                    completeButton.addEventListener("click", function() {
+                    handlecomplete(index);
+                    });
+                   var editButton = document.createElement("img");
+                   editButton.src = 'edi.PNG'; 
+                   editButton.addEventListener("click", function() {
+                    handleedit(index);
+                    });
+  // Append the tasks and buttons to the element link created
+    
+        link.textContent = x.taske;
+        document.getElementById('mytask').appendChild(link3)
+        link3.appendChild(link);
+        link3.appendChild(link2);
+        link2.appendChild(check);
+        link2.appendChild(trashButton);
+        link2.appendChild(completeButton);
+        link2.appendChild(editButton);  
+        if(x.status!=='notcompleted'){
+          link.classList.add('strickethrough')
+         }
+    });
+}
+
+
+  </script>
+  <div class="all"> 
+    <div >
+<!-- my form -->
+        <form onsubmit="handlesubmit()">
+        <input type="text" id="task" placeholder="input your task here" required>
+        <select id="category"  required>
+             <option value="" disabled selected>category</option>
+             <option value="Workplace">Workplace</option>
+             <option value="Home">Home</option>
+             <option value="Health">Health </option>
+             <option value="Family">Family</option>
+             <option value="Finance">Finance</option>
+             <option value="Education">Education</option>
+        </select>
+        <button type="sumbit" >Add</button>
+     </form>
+    </div>
+     <h1>Tasks</h1>
+     <div>
+     <div class="category">  
+  <!-- The categories of the tasks -->
+         <h2 id="class"  onclick="window.location.href='index.html'">All</h2>
+         <h2 id="Workplace"  onclick="window.location.href='index.html?categorie=Workplace'">Workplace</h2>
+         <h2 id="Home" onclick="window.location.href='index.html?categorie=Home'">Home</h2>
+         <h2 id="Health" onclick="window.location.href='index.html?categorie=Health'"> Health </h2>
+         <h2 id="Family" onclick="window.location.href='index.html?categorie=Family'">Family</h2>
+         <h2 id="Finance" onclick="window.location.href='index.html?categorie=Finance'">Finance</h2>
+         <h2 id="Education" onclick="window.location.href='index.html?categorie=Education'">Education</h2>
+     </div>
+     <div class="mestask" id="mytask">
+        
+     </div>
+    </div>
+  </div> 
+  <script>
+    // Extract the query string
+var queryString = url.split('?')[1];
+
+// Parse the query string
+var params = new URLSearchParams(queryString);
+
+// Access individual parameters
+var param1 = params.get('categorie');
+if (param1){
+  var paramss=document.getElementById(param1)
+  paramss.classList.add('active');
+  
+}
+else{
+  var paramss=document.getElementById('class')
+  paramss.classList.add('active');
+  
+}
+  </script>
+  <div>
+    <br><br>
+   
+  </div>
+ 
+</body>
+</html>
