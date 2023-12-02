@@ -1,17 +1,35 @@
 body{
    margin: 0;
+   background-color: #1f1e1e;
 }
 .all{
-    background-color:#353434;
+   
     color: white;
     width: 75%;
   position: relative;
-    top:20;
+    top:150;
     left:0;
     right:0;
     bottom:0;
     margin:auto;
     
+}
+.content{
+    background-color:#353434;
+}
+.initiale{
+    position: absolute;
+    right: 18px; 
+    color: rgba(255, 255, 255, 0.37);
+    border: 3px solid #a8a4a4;
+    border-radius: 50%; 
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center; 
+    font-weight: bold;
+    cursor: pointer;
+    top: 0;
 }
 form{
     border-bottom:2px solid gray;
@@ -20,6 +38,16 @@ form{
     display:flex;
     align-items:center;
   
+}
+.parameter{
+    position: absolute; 
+    top:70;
+    right: 8;
+    background-color:rgb(65, 63, 65);
+    color: white;
+    width: 380px;
+    display: block;
+    padding: 10;
 }
 form input{
     padding:12px 20px;
@@ -35,6 +63,7 @@ form select{
     box-sizing: border-box;
     font-size: 20px;
 }
+
 form button{
     background-color:#34a7ef;
 
@@ -142,6 +171,18 @@ form button:hover{
     height: 100%;
     width: 99%;z-index: 999;
     position: absolute;
-    margin:0;
+    top:0;
+}
+.param{
+    background-color:rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 99%;z-index: 9990;
+    position: absolute;
+    top:0; 
+   width: 100%;
+}
+.params{
+    display: none;
+    
 }
 

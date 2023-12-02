@@ -7,8 +7,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="app that helps you to manage your tasks">
   <link rel="stylesheet" href="Todo.css">
+  
   <style>
-        @media screen and (max-width: 767px){
+   @media screen and (min-width: 767px){
+    
+    form{
+      position: relative;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+    }
+    .alli{
+      background-color:#353434;
+    color: white;
+    width: 385px;
+  position: relative;
+    top:230;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    }
+    
+     }
+     .myhead{
+      
+      color:white;
+      position: relative;
+      text-align: center;
+      top: 100;
+    }
+     
+        @media screen and (max-width: 907px){
+          .alli{
+      background-color:#353434;
+    color: white;
+    width: 365px;
+  position: relative;
+    top:230;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    }
+          .myhead{
+      
+      color:white;
+    }   
  form  {
     display: block;
    
@@ -16,7 +60,7 @@
     }
     form input{
     margin-bottom:10px ;
-    width: 80%;
+    width: 60%;
     }
     .task img{
       margin-right: 0;
@@ -48,7 +92,7 @@
     height: 100%;
     width: 99%;z-index: 1999;
     position: absolute;
-    margin:0; 
+    top:0; 
     display: block;
     }
     .notice-container {
@@ -81,29 +125,64 @@
     .noticenone{
       display: none;
     }
-    
+    .noticenone1{
+      display: none;
+    }
+    .succes{
+     border:1px solid red;
+    }
+    .notask{
+     text-align: center;
+    }
+    .task input{
+      cursor: pointer;
+    }
+   
+    .username h1{
+      position: relative;
+    top:100;
+    left:0;
+    right:0;
+    bottom:0; 
+    margin:auto;
+    color:white;
+    text-align: center;
+    }
+    .view{
+      display: block;
+    }
   </style>
 </head>
-<body style="background-color:#1f1e1e;">
-  <br>
-  <div style="color:white;width: 100%; position:relative;top:0;left:0;right:0;bottom:0;margin:auto">
-   <h1 >Welcome to your todo-app</h1>
-</div>
+<body >
+  <div class="username">
+    <h1>Todo-app</h1>
+    <form class="alli" onsubmit="">
+      <input type="text" id="name" placeholder="Your name please!" required>
+      <button type="submit" onclick="removeusername()">Send</button>
+    </form>
+  </div>
+  
+<div class="noticenone1">
+
+   <h1 class="myhead">Welcome to your to Todo-App</h1>
+   
   <div class="noticenone"> 
- 
     <div class="notice-container">
     <span class="close-btn" onclick="handlepop()">&times;</span>
       <h1>notice to the user</h1>
-      <p>1.Use this button <input type="radio"> to make the task important</p>
-      <p>2.Use on this button  <img src="delete.png" alt="" srcset="">  to delete</p>
-     <p>3.click on this button  <img src="complete.png" alt="" srcset=""> to complete task </p> 
-    <p>4.click on this button   <img src="edi.png" alt="" srcset=""> to edit</p>
-    <p>!Just click on the button to carry one of the above operations on a particular task</p>
+      <p>1.Use this button <input type="radio"> to make the task important</p> 
+      <p>2.Use this button <input type="radio" checked> to make the task not important</p> 
+      <p>3.Use  this button  <img src="delete.png" alt="" srcset="">  to delete</p>
+     <p>4.Use  this button  <img src="complete.png" alt="" srcset=""> to complete task </p> 
+    <p>5.Use  this button   <img src="edi.png" alt="" srcset=""> to edit</p>
+    <p>For more settings click on <img src="setting.png" width="25" height="25"> or the circle in the right-top of your page</p>
+    <p>!Just click the button to carry one of the above operations on a particular task</p>
  <button class="btnedit" style="background-color: #34a7ef;border-Radius:5px;
+ margin-left: 30%;
  box-sizing: border-box;
  cursor:pointer;
    height:43px;
-   width:50px;" onclick="handlepop()">Ok</button>  
+   width:auto;" onclick="handlepop()">Dont show me again</button>  
     </div>
   </div>
   <script>
@@ -113,6 +192,7 @@
      eli.classList.add('noticenone');
      localStorage.setItem('see',JSON.stringify('see'))
     } 
+   
 
   </script>
   <div class="editbackgroundnone">
@@ -120,12 +200,13 @@
      <span id='close'style="position:absolute;right:13;font-size:30px;transform:rotate(45deg);font-weight: bolder;cursor:pointer">+</span>
       <h1 >Edit here</h1>
     <input type="text" id="newtask" placeholder="new task here" ><br> <br> 
-        <select id="newcategory"  >  <option value="" disabled selected>category</option>
+        <select id="newcategory" > 
+          <option value="" disabled selected>category</option>
           <option value="Workplace">Workplace</option>
           <option value="Home">Home</option>
           <option value="Health">Health </option>
           <option value="Family">Family</option>
-          <option value="Finance">Finance</option>
+        
           <option value="Education">Education</option>
      </select><br> <br> 
      <button type="sumbit" class="btnedit">edit</button></form>
@@ -233,11 +314,7 @@ var param1 = params.get('categorie');
     return x.categorie==='Family';
   })   
   }
-  else if(param1==='Finance'){
-    display= Newtask.filter((x)=>{
-    return x.categorie==='Finance';
-  })   
-  }
+ 
   else if(param1==='Education'){
     display= Newtask.filter((x)=>{
     return x.categorie==='Education';
@@ -254,25 +331,38 @@ var param1 = params.get('categorie');
       window.location.reload();
      
 }
+const makeunimportant=(index)=>{
+        
+        var important=[...Newtask];
+        important[index].genre='notimportant';
+            localStorage.setItem('todolist4',JSON.stringify(important))
+            window.location.reload();
+           
+      }
   //  code to display the tasks 
-         window.onload = function () {
-         display.map.call(display, function (x,index) {
+ 
+         window.onload = function () { 
+          if(display.length>0) {
+            display.map.call(display, function (x,index) {
          var link = document.createElement('h3');
          var link2 = document.createElement('span');
          var link3 = document.createElement('div');
          link3.classList.add('task')
-         
                     var check = document.createElement("input");
-                    check.classList.add('important')
                     if(x.genre==='important'){
                      check.checked = true;
-                     check.classList.add('succes')
-                     link.style.color='gold';
+                     link3.classList.add('succes') ;
                     }
                     check.type= 'radio';
                   
                     check.addEventListener("click", function() {
-                   makeimportant(index);
+                      if (x.genre==='important'){
+                         makeunimportant(index)
+                       
+                      }
+                  else{
+                    makeimportant(index);
+                  }
 
                     });
                     // Buttons icons for delete ,complete and edit
@@ -293,6 +383,7 @@ var param1 = params.get('categorie');
                    editButton.addEventListener("click", function() {
                     handleedit(index);
                     });
+                    
   // Append the tasks and buttons to the element link created
     
         link.textContent = x.taske;
@@ -307,42 +398,56 @@ var param1 = params.get('categorie');
           link.classList.add('strickethrough')
          }
     });
+          } 
+          else{ 
+              var link3 = document.createElement('div');
+               document.getElementById('mytask').appendChild(link3)
+               var link = document.createElement('h3');
+               link.classList.add('notask')
+                link.textContent='No task'
+                link3.classList.add('task')
+                link3.appendChild(link);
+        
+          }
+        
 }
 
 
   </script>
   <div class="all"> 
-    <div >
-<!-- my form -->
+  
+    <div class="content" >
+    
+       <!-- my form -->
         <form onsubmit="handlesubmit()">
         <input type="text" id="task" placeholder="input your task here" required>
-        <select id="category"  required>
-             <option value="" disabled selected>category</option>
+        <select id="category"   required>
+             <option value="" disabled selected  >category</option>
              <option value="Workplace">Workplace</option>
              <option value="Home">Home</option>
              <option value="Health">Health </option>
              <option value="Family">Family</option>
-             <option value="Finance">Finance</option>
              <option value="Education">Education</option>
         </select>
         <button type="sumbit" >Add</button>
      </form>
-    </div>
+    
      <h1>Tasks</h1>
-     <div>
+    
+      
      <div class="category">  
   <!-- The categories of the tasks -->
-         <h2 id="class"  onclick="window.location.href='index.html'">All</h2>
+         <h2 id="class"   onclick="window.location.href='index.html'">All</h2>
          <h2 id="Workplace"  onclick="window.location.href='index.html?categorie=Workplace'">Workplace</h2>
          <h2 id="Home" onclick="window.location.href='index.html?categorie=Home'">Home</h2>
          <h2 id="Health" onclick="window.location.href='index.html?categorie=Health'"> Health </h2>
          <h2 id="Family" onclick="window.location.href='index.html?categorie=Family'">Family</h2>
-         <h2 id="Finance" onclick="window.location.href='index.html?categorie=Finance'">Finance</h2>
          <h2 id="Education" onclick="window.location.href='index.html?categorie=Education'">Education</h2>
      </div>
-     <div class="mestask" id="mytask">
-        
+     <div class="mestask" id="mytask"></div></div>
+     <span id="set" style="display:flex;cursor:pointer"><img src="setting.png" width="30px" height="30px" alt="setting" style="position:relative;margin-top: 10px;"><p>Settings</p></span>
      </div>
+     
     </div>
   </div> 
   <script>
@@ -364,11 +469,197 @@ else{
   paramss.classList.add('active');
   
 }
+
   </script>
   <div>
     <br><br>
    
   </div>
+ </div>
+<script> 
+
+
+const removeusername=()=>{
+  
+var name=document.getElementById('name').value
+ localStorage.setItem('name',JSON.stringify(name))
  
+} 
+var user= JSON.parse(localStorage.getItem('name'))  
+
+if(user) {
+ var eli=document.querySelector(".noticenone1");
+eli.classList.add('view'); 
+eli.classList.remove('noticenone1');
+var elia=document.querySelector('.username');
+elia.classList.add('noticenone1')
+var user= JSON.parse(localStorage.getItem('name'))
+var head=document.createElement('h1')
+head.classList.add('initiale')
+var myArray = user.split('');
+var initials=myArray[0]+myArray[1]
+head.textContent=initials
+eli.appendChild(head)
+}
+var set=document.getElementById('set')
+head.addEventListener('click',function(){
+  setting()
+})
+set.addEventListener("click", function() {
+setting()
+});
+
+
+function setting(){
+  
+  const paramsDiv = document.createElement('div');
+  paramsDiv.className = 'param';
+  
+  // Create the parameter div
+  const parameterDiv = document.createElement('div');
+  parameterDiv.className = 'parameter';
+
+function updateBackgroundHeight() {
+ 
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth', // You can use 'auto' for instant scrolling
+  });
+  document.body.style.overflow = 'hidden';
+}
+updateBackgroundHeight() 
+  // Create the close button
+  const closeButton = document.createElement('span');
+  closeButton.className = 'closee';
+  closeButton.textContent = '+';
+  closeButton.style.cssText = "position:absolute;right:13;font-size:30px;transform:rotate(45deg);font-weight: bolder;cursor:pointer";
+   closeButton.addEventListener('click',function(){
+    paramsDiv.className = 'params';
+    document.body.style.overflow = 'auto';
+   })
+  // Create the h1 element for user information
+  const userInfoHeading = document.createElement('h1');
+  userInfoHeading.textContent = 'Info about user';
+
+  // Create the first paragraph for user information
+  const userInfoParagraph = document.createElement('p');
+  var name= JSON.parse(localStorage.getItem('name'));
+  userInfoParagraph.textContent=`User Name: ${name}` 
+
+  const userInfoParagraph1 = document.createElement('p');
+  var todo= JSON.parse(localStorage.getItem('todolist4'));
+
+    var numberoft=todo?todo.length:0
+ 
+  userInfoParagraph1.textContent=`Number of Task: ${numberoft}`
+  // Create the second paragraph for user information
+  const userInfoParagraph2 = document.createElement('p');
+  var numberoft11=todo?.filter((x)=>{
+    return x.status==='completed'
+  })
+  var numberoft1=numberoft11?numberoft11.length:0
+ 
+ userInfoParagraph2.textContent=`Number of Task completed: ${numberoft1}`
+  // Create the third paragraph for user information
+  const userInfoParagraph3 = document.createElement('p');
+  var numberoft112=todo?.filter((x)=>{
+    return x.genre==='important'
+  })
+  var numberoft12=numberoft112?numberoft112.length:0
+ 
+ userInfoParagraph3.textContent=`Number of important Tasks: ${numberoft12}`
+  // Create the hr element
+  const hrElement = document.createElement('hr');
+
+  // Create the h1 element for settings
+  const settingsHeading = document.createElement('h1');
+  settingsHeading.textContent = 'Settings';
+
+  // Create the form element
+  const settingsForm = document.createElement('form');
+  settingsForm.style.display = 'block';
+
+  // Create the select element for background color change
+  const bgColorSelect = document.createElement('select');
+  const colorOptions = ['brown', 'gray', 'cadetblue', 'default'];
+
+  const defaultOption = document.createElement('option');
+  defaultOption.disabled = true;
+  defaultOption.selected = true;
+  defaultOption.textContent = 'change bg-color';
+  bgColorSelect.appendChild(defaultOption);
+
+  for (const color of colorOptions) {
+    const option = document.createElement('option');
+    option.value = color;
+    option.textContent = color;
+    bgColorSelect.appendChild(option);
+  }
+  bgColorSelect.addEventListener('change',function(){
+    var couleur= bgColorSelect.value;
+      localStorage.setItem('color',JSON.stringify(couleur))
+       var mybgcolor=JSON.parse(localStorage.getItem('color'))==='default'?'#1f1e1e':JSON.parse(localStorage.getItem('color'));  
+  document.body.style.backgroundColor=mybgcolor
+    })
+               
+ 
+  // Create line breaks
+  const lineBreak1 = document.createElement('br');
+  const lineBreak2 = document.createElement('br');
+
+  // Create the input element for a new name
+  const newNameInput = document.createElement('input');
+  newNameInput.type = 'text';
+  newNameInput.placeholder = 'new name';
+  newNameInput.required = true;
+  // Create the button element
+  const okButton = document.createElement('button');
+  okButton.type = 'submit';
+  okButton.textContent = 'ok';
+  okButton.style.marginLeft='10px'
+  // Append elements to the form
+  settingsForm.appendChild(bgColorSelect);
+  settingsForm.appendChild(lineBreak1);
+  settingsForm.appendChild(lineBreak2);
+  settingsForm.appendChild(newNameInput);
+  settingsForm.appendChild(okButton);
+  settingsForm.addEventListener('submit',function(){
+    localStorage.setItem('name',JSON.stringify(newNameInput.value))
+  })
+  // Create the paragraph for "see again the notice of user"
+  const noticeParagraph = document.createElement('p');
+  noticeParagraph.style.color = 'blue';
+  noticeParagraph.textContent = 'See again the notice of use';
+  noticeParagraph.style.cursor='pointer'
+  noticeParagraph.addEventListener('click',function(){
+    var eli=document.querySelector(".noticenone");
+   eli.classList.remove('noticenone');               
+     eli.classList.add('notice'); 
+     paramsDiv.className = 'params';
+
+  })
+  // Append all elements to the parameter div
+  parameterDiv.appendChild(closeButton);
+  parameterDiv.appendChild(userInfoHeading);
+  parameterDiv.appendChild(userInfoParagraph);
+  parameterDiv.appendChild(userInfoParagraph1);
+  parameterDiv.appendChild(userInfoParagraph2);
+  parameterDiv.appendChild(userInfoParagraph3);
+  parameterDiv.appendChild(hrElement);
+  parameterDiv.appendChild(settingsHeading);
+  parameterDiv.appendChild(settingsForm);
+  parameterDiv.appendChild(noticeParagraph);
+
+  // Append the parameter div to the main container div
+  paramsDiv.appendChild(parameterDiv);
+
+  // Append the main container div to the body
+  document.body.appendChild(paramsDiv);             
+                    }
+
+
+                    document.body.style.backgroundColor=JSON.parse(localStorage.getItem('color'))==='default'?'#1f1e1e':JSON.parse(localStorage.getItem('color'))          
+</script>
+
 </body>
 </html>
