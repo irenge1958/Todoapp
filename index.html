@@ -1,5 +1,5 @@
 <html>
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Todo App</title>
@@ -7,10 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="app that helps you to manage your tasks">
   <link rel="stylesheet" href="Todo.css">
-  
+  <script defer src="task(crud).js"></script>
+  <script defer src="task(display).js"></script>
+  <script defer src="popup.js"></script>
   <style>
+    /* computer screen */
    @media screen and (min-width: 767px){
-    
     form{
       position: relative;
       margin-bottom: 40px;
@@ -36,7 +38,7 @@
       text-align: center;
       top: 100;
     }
-     
+     /* small screen */
         @media screen and (max-width: 907px){
           .alli{
       background-color:#353434;
@@ -87,70 +89,6 @@
  }
  
     }
-    .notice{
-      background-color:rgba(0, 0, 0, 0.7);
-    height: 100%;
-    width: 99%;z-index: 1999;
-    position: absolute;
-    top:0; 
-    display: block;
-    }
-    .notice-container {
-      background-color: #f8d7da; /* Light red background color */
-      color: #721c24; /* Dark red text color */
-      position: relative; 
-      top:20;
-      left:0;
-      right:0;
-      bottom:0;
-      margin:auto;
-      width: 300px;
-       display: block;
-       padding: 15px;
-       border-radius: 10px;
-
-    }
-
-    /* Optional: Style for a close button */
-    .close-btn {
-      cursor: pointer;
-      float: right;
-      font-weight: bold;
-    }
-    .notice-container img{
-      height: 30px;
-      position: relative;
-      margin-bottom: -5px;
-    }
-    .noticenone{
-      display: none;
-    }
-    .noticenone1{
-      display: none;
-    }
-    .succes{
-     border:1px solid red;
-    }
-    .notask{
-     text-align: center;
-    }
-    .task input{
-      cursor: pointer;
-    }
-   
-    .username h1{
-      position: relative;
-    top:100;
-    left:0;
-    right:0;
-    bottom:0; 
-    margin:auto;
-    color:white;
-    text-align: center;
-    }
-    .view{
-      display: block;
-    }
   </style>
 </head>
 <body >
@@ -161,11 +99,8 @@
       <button type="submit" onclick="removeusername()">Send</button>
     </form>
   </div>
-  
 <div class="noticenone1">
-
    <h1 class="myhead">Welcome to your to Todo-App</h1>
-   
   <div class="noticenone"> 
     <div class="notice-container">
     <span class="close-btn" onclick="handlepop()">&times;</span>
@@ -186,14 +121,6 @@
     </div>
   </div>
   <script>
-    const handlepop=()=>{
-      var eli=document.querySelector(".notice");
-   eli.classList.remove('notice');               
-     eli.classList.add('noticenone');
-     localStorage.setItem('see',JSON.stringify('see'))
-    } 
-   
-
   </script>
   <div class="editbackgroundnone">
     <form class="edit" onsubmit="handledit2()">
@@ -206,220 +133,14 @@
           <option value="Home">Home</option>
           <option value="Health">Health </option>
           <option value="Family">Family</option>
-        
           <option value="Education">Education</option>
      </select><br> <br> 
      <button type="sumbit" class="btnedit">edit</button></form>
   </div>
-  <script>
-var todolist3Data = localStorage.getItem('todolist4');
-var todolist3Array = JSON.parse(todolist3Data);
- var Newtask=todolist3Array? JSON.parse(localStorage.getItem('todolist4')) : [] ;
-var NEWtaskupadteL=Newtask.filter((x)=>{ return x.genre==='important'; })   
-var NEWtaskupadteR=Newtask.filter((x)=>{ return x.genre==='notimportant'; }) 
- var Newtask=NEWtaskupadteL.concat(NEWtaskupadteR)
- var see=JSON.parse(localStorage.getItem('see'));
- if (Newtask.length===1 && !see){
-var eli=document.querySelector(".noticenone");
-   eli.classList.remove('noticenone');               
-     eli.classList.add('notice');  
-   
-
-}
-//  Function to handle the task added 
-    const handlesubmit=()=>{  
-      var task=document.getElementById('task').value
-      var category=document.getElementById('category').value;
-      var elements={taske:task,categorie:category,status:'notcompleted',genre:'notimportant'}
-      
-      var taskupadte=[...Newtask]
-     
-      taskupadte.push(elements)
-      localStorage.setItem('todolist4',JSON.stringify(taskupadte))
-      
-  
-    }
-
-   
-   //  function to delete the task
-   const handleDelete=(index)=>{
-    var deletee=[...Newtask];
-      deletee.splice(index,1);
-      localStorage.setItem('todolist4',JSON.stringify(deletee))
-      window.location.reload();
-}
-const handlecomplete=(index)=>{
-  var complete=[...Newtask];
-  complete[index].status='completed'
-      localStorage.setItem('todolist4',JSON.stringify(complete))
-      window.location.reload();
-}
-const handleedit=(index)=>{
-
-  var el=document.querySelector(".editbackgroundnone");
-     el.classList.remove('editbackgroundnone');		
-     el.classList.add('editbackground'); 
-     localStorage.setItem('element',JSON.stringify(index))
-    
-}
-const handledit2=()=>{
-  var edit=[...Newtask];
-  var elementedit= JSON.parse(localStorage.getItem('element'));
-  var task=document.getElementById('newtask').value
-      var category=document.getElementById('newcategory').value;
-  edit[elementedit].taske=task ? task : edit[elementedit].taske
-  edit[elementedit].categorie=category ? category : edit[elementedit].categorie
-      localStorage.setItem('todolist4',JSON.stringify(edit))
-      window.location.reload();
-}
-var close=document.getElementById('close');
-close.addEventListener("click", function() {
-  var el=document.querySelector(".editbackground");
-     
-     el.classList.add('editbackgroundnone');		
-     el.classList.remove('editbackground');               
-                    });  var url = window.location.href;
-
-// Extract the query string
-var queryString = url.split('?')[1];
-
-// Parse the query string
-var params = new URLSearchParams(queryString);
-
-// Access individual parameters
-var param1 = params.get('categorie');
-
-  //  filter the task by category  
-  
-  if(param1==='Workplace'){
-    display= Newtask.filter((x)=>{
-    return x.categorie==='Workplace';
-  
-  })   
-  }
- 
-  else if(param1==='Home'){
-    display= Newtask.filter((x)=>{
-    return x.categorie==='Home';
-  })   
-
-  }
-  else if(param1==='Health'){
-    display= Newtask.filter((x)=>{
-    return x.categorie==='Health';
-  })   
-  }
-  else if(param1==='Family'){
-    display= Newtask.filter((x)=>{
-    return x.categorie==='Family';
-  })   
-  }
- 
-  else if(param1==='Education'){
-    display= Newtask.filter((x)=>{
-    return x.categorie==='Education';
-  })   
-  }
-      else if(!param1){
-         display=Newtask
-      }
-      const makeimportant=(index)=>{
-        
-  var important=[...Newtask];
-  important[index].genre='important';
-      localStorage.setItem('todolist4',JSON.stringify(important))
-      window.location.reload();
-     
-}
-const makeunimportant=(index)=>{
-        
-        var important=[...Newtask];
-        important[index].genre='notimportant';
-            localStorage.setItem('todolist4',JSON.stringify(important))
-            window.location.reload();
-           
-      }
-  //  code to display the tasks 
- 
-         window.onload = function () { 
-          if(display.length>0) {
-            display.map.call(display, function (x,index) {
-         var link = document.createElement('h3');
-         var link2 = document.createElement('span');
-         var link3 = document.createElement('div');
-         link3.classList.add('task')
-                    var check = document.createElement("input");
-                    if(x.genre==='important'){
-                     check.checked = true;
-                     link3.classList.add('succes') ;
-                    }
-                    check.type= 'radio';
-                  
-                    check.addEventListener("click", function() {
-                      if (x.genre==='important'){
-                         makeunimportant(index)
-                       
-                      }
-                  else{
-                    makeimportant(index);
-                  }
-
-                    });
-                    // Buttons icons for delete ,complete and edit
-                    var trashButton = document.createElement("img");
-                    trashButton.src = 'delete.PNG';
-                    trashButton.width = 39; 
-                    trashButton.height = 47; 
-                    trashButton.addEventListener("click", function() {
-                    handleDelete(index);
-                    });
-                    var completeButton = document.createElement("img");
-                    completeButton.src = 'complete.PNG';
-                    completeButton.addEventListener("click", function() {
-                    handlecomplete(index);
-                    });
-                   var editButton = document.createElement("img");
-                   editButton.src = 'edi.PNG'; 
-                   editButton.addEventListener("click", function() {
-                    handleedit(index);
-                    });
-                    
-  // Append the tasks and buttons to the element link created
-    
-        link.textContent = x.taske;
-        document.getElementById('mytask').appendChild(link3)
-        link3.appendChild(link);
-        link3.appendChild(link2);
-        link2.appendChild(check);
-        link2.appendChild(trashButton);
-        link2.appendChild(completeButton);
-        link2.appendChild(editButton);  
-        if(x.status!=='notcompleted'){
-          link.classList.add('strickethrough')
-         }
-    });
-          } 
-          else{ 
-              var link3 = document.createElement('div');
-               document.getElementById('mytask').appendChild(link3)
-               var link = document.createElement('h3');
-               link.classList.add('notask')
-                link.textContent='No task'
-                link3.classList.add('task')
-                link3.appendChild(link);
-        
-          }
-        
-}
-
-
-  </script>
-  <div class="all"> 
-  
-    <div class="content" >
-    
+    <div class="all"> 
+      <div class="content" >
        <!-- my form -->
-        <form onsubmit="handlesubmit()">
+        <form onsubmit="handlesubmit()"   >
         <input type="text" id="task" placeholder="input your task here" required>
         <select id="category"   required>
              <option value="" disabled selected  >category</option>
@@ -431,10 +152,7 @@ const makeunimportant=(index)=>{
         </select>
         <button type="sumbit" >Add</button>
      </form>
-    
      <h1>Tasks</h1>
-    
-      
      <div class="category">  
   <!-- The categories of the tasks -->
          <h2 id="class"   onclick="window.location.href='index.html'">All</h2>
@@ -451,7 +169,9 @@ const makeunimportant=(index)=>{
     </div>
   </div> 
   <script>
+   // changing the the style of the categorie of task by the help of the value in url
     // Extract the query string
+    var url = window.location.href;
 var queryString = url.split('?')[1];
 
 // Parse the query string
@@ -469,197 +189,10 @@ else{
   paramss.classList.add('active');
   
 }
-
   </script>
   <div>
     <br><br>
-   
   </div>
  </div>
-<script> 
-
-
-const removeusername=()=>{
-  
-var name=document.getElementById('name').value
- localStorage.setItem('name',JSON.stringify(name))
- 
-} 
-var user= JSON.parse(localStorage.getItem('name'))  
-
-if(user) {
- var eli=document.querySelector(".noticenone1");
-eli.classList.add('view'); 
-eli.classList.remove('noticenone1');
-var elia=document.querySelector('.username');
-elia.classList.add('noticenone1')
-var user= JSON.parse(localStorage.getItem('name'))
-var head=document.createElement('h1')
-head.classList.add('initiale')
-var myArray = user.split('');
-var initials=myArray[0]+myArray[1]
-head.textContent=initials
-eli.appendChild(head)
-}
-var set=document.getElementById('set')
-head.addEventListener('click',function(){
-  setting()
-})
-set.addEventListener("click", function() {
-setting()
-});
-
-
-function setting(){
-  
-  const paramsDiv = document.createElement('div');
-  paramsDiv.className = 'param';
-  
-  // Create the parameter div
-  const parameterDiv = document.createElement('div');
-  parameterDiv.className = 'parameter';
-
-function updateBackgroundHeight() {
- 
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth', // You can use 'auto' for instant scrolling
-  });
-  document.body.style.overflow = 'hidden';
-}
-updateBackgroundHeight() 
-  // Create the close button
-  const closeButton = document.createElement('span');
-  closeButton.className = 'closee';
-  closeButton.textContent = '+';
-  closeButton.style.cssText = "position:absolute;right:13;font-size:30px;transform:rotate(45deg);font-weight: bolder;cursor:pointer";
-   closeButton.addEventListener('click',function(){
-    paramsDiv.className = 'params';
-    document.body.style.overflow = 'auto';
-   })
-  // Create the h1 element for user information
-  const userInfoHeading = document.createElement('h1');
-  userInfoHeading.textContent = 'Info about user';
-
-  // Create the first paragraph for user information
-  const userInfoParagraph = document.createElement('p');
-  var name= JSON.parse(localStorage.getItem('name'));
-  userInfoParagraph.textContent=`User Name: ${name}` 
-
-  const userInfoParagraph1 = document.createElement('p');
-  var todo= JSON.parse(localStorage.getItem('todolist4'));
-
-    var numberoft=todo?todo.length:0
- 
-  userInfoParagraph1.textContent=`Number of Task: ${numberoft}`
-  // Create the second paragraph for user information
-  const userInfoParagraph2 = document.createElement('p');
-  var numberoft11=todo?.filter((x)=>{
-    return x.status==='completed'
-  })
-  var numberoft1=numberoft11?numberoft11.length:0
- 
- userInfoParagraph2.textContent=`Number of Task completed: ${numberoft1}`
-  // Create the third paragraph for user information
-  const userInfoParagraph3 = document.createElement('p');
-  var numberoft112=todo?.filter((x)=>{
-    return x.genre==='important'
-  })
-  var numberoft12=numberoft112?numberoft112.length:0
- 
- userInfoParagraph3.textContent=`Number of important Tasks: ${numberoft12}`
-  // Create the hr element
-  const hrElement = document.createElement('hr');
-
-  // Create the h1 element for settings
-  const settingsHeading = document.createElement('h1');
-  settingsHeading.textContent = 'Settings';
-
-  // Create the form element
-  const settingsForm = document.createElement('form');
-  settingsForm.style.display = 'block';
-
-  // Create the select element for background color change
-  const bgColorSelect = document.createElement('select');
-  const colorOptions = ['brown', 'gray', 'cadetblue', 'default'];
-
-  const defaultOption = document.createElement('option');
-  defaultOption.disabled = true;
-  defaultOption.selected = true;
-  defaultOption.textContent = 'change bg-color';
-  bgColorSelect.appendChild(defaultOption);
-
-  for (const color of colorOptions) {
-    const option = document.createElement('option');
-    option.value = color;
-    option.textContent = color;
-    bgColorSelect.appendChild(option);
-  }
-  bgColorSelect.addEventListener('change',function(){
-    var couleur= bgColorSelect.value;
-      localStorage.setItem('color',JSON.stringify(couleur))
-       var mybgcolor=JSON.parse(localStorage.getItem('color'))==='default'?'#1f1e1e':JSON.parse(localStorage.getItem('color'));  
-  document.body.style.backgroundColor=mybgcolor
-    })
-               
- 
-  // Create line breaks
-  const lineBreak1 = document.createElement('br');
-  const lineBreak2 = document.createElement('br');
-
-  // Create the input element for a new name
-  const newNameInput = document.createElement('input');
-  newNameInput.type = 'text';
-  newNameInput.placeholder = 'new name';
-  newNameInput.required = true;
-  // Create the button element
-  const okButton = document.createElement('button');
-  okButton.type = 'submit';
-  okButton.textContent = 'ok';
-  okButton.style.marginLeft='10px'
-  // Append elements to the form
-  settingsForm.appendChild(bgColorSelect);
-  settingsForm.appendChild(lineBreak1);
-  settingsForm.appendChild(lineBreak2);
-  settingsForm.appendChild(newNameInput);
-  settingsForm.appendChild(okButton);
-  settingsForm.addEventListener('submit',function(){
-    localStorage.setItem('name',JSON.stringify(newNameInput.value))
-  })
-  // Create the paragraph for "see again the notice of user"
-  const noticeParagraph = document.createElement('p');
-  noticeParagraph.style.color = 'blue';
-  noticeParagraph.textContent = 'See again the notice of use';
-  noticeParagraph.style.cursor='pointer'
-  noticeParagraph.addEventListener('click',function(){
-    var eli=document.querySelector(".noticenone");
-   eli.classList.remove('noticenone');               
-     eli.classList.add('notice'); 
-     paramsDiv.className = 'params';
-
-  })
-  // Append all elements to the parameter div
-  parameterDiv.appendChild(closeButton);
-  parameterDiv.appendChild(userInfoHeading);
-  parameterDiv.appendChild(userInfoParagraph);
-  parameterDiv.appendChild(userInfoParagraph1);
-  parameterDiv.appendChild(userInfoParagraph2);
-  parameterDiv.appendChild(userInfoParagraph3);
-  parameterDiv.appendChild(hrElement);
-  parameterDiv.appendChild(settingsHeading);
-  parameterDiv.appendChild(settingsForm);
-  parameterDiv.appendChild(noticeParagraph);
-
-  // Append the parameter div to the main container div
-  paramsDiv.appendChild(parameterDiv);
-
-  // Append the main container div to the body
-  document.body.appendChild(paramsDiv);             
-                    }
-
-
-                    document.body.style.backgroundColor=JSON.parse(localStorage.getItem('color'))==='default'?'#1f1e1e':JSON.parse(localStorage.getItem('color'))          
-</script>
-
 </body>
 </html>
